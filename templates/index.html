@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Detection</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #282c34; /* orqa fon*/
+            color: white;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        #videoContainer {
+            text-align: center;
+        }
+
+        #videoElement {
+            width: 90%;    
+            height: auto;
+            border: 5px solid white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #1e90ff; /*buttonni rangi */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1c86ee; 
+        }
+
+        #buttonsContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Face Detection ONNXRuntime</h1>
+    <div id="videoContainer">
+        <img id="videoElement" src="{{ url_for('video_feed') }}" alt="Face Detection">
+    </div>
+    <div id="buttonsContainer">
+        <button id="toggleButton" onclick="toggleVideo()">Stop</button>
+    </div>
+
+    <script>
+        var videoRunning = true;
+        var videoElement = document.getElementById('videoElement');
+        var toggleButton = document.getElementById('toggleButton');
+
+        function toggleVideo() {
+            if (videoRunning) {
+                videoElement.src = '';
+                toggleButton.textContent = 'Start';
+            } else {
+                videoElement.src = "{{ url_for('video_feed') }}";
+                toggleButton.textContent = 'Stop';
+            }
+            videoRunning = !videoRunning;
+        }
+    </script>
+</body>
+</html>
